@@ -130,6 +130,7 @@ export const VDateInput = genericComponent()({
             >
               {{
                 default: ({ actions, model: proxyModel }) => {
+                  const slotProps = { actions, model: proxyModel }
                   return (
                     <VDatePicker
                       { ...datePickerProps }
@@ -145,8 +146,10 @@ export const VDateInput = genericComponent()({
                       }}
                       onMousedown={ (e: MouseEvent) => e.preventDefault() }
                     >
-                      {{
-                        actions: !props.hideActions ? () => actions : undefined,
+                       {{
+                        actions: slots.actions
+                          ? () => slots.actions(slotProps)
+                          : (!props.hideActions ? () => actions : undefined),
                       }}
                     </VDatePicker>
                   )
